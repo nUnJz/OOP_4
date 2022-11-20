@@ -105,6 +105,7 @@ namespace OOP_4_1
             return A * Math.Sqrt(c * c + B * B / 4) + B * Math.Sqrt(c * c + A * A / 4) + base.Square();
         }
     }
+
     class Program
     {
         static void Main(string[] args)
@@ -112,7 +113,6 @@ namespace OOP_4_1
             Console.OutputEncoding = System.Text.Encoding.Default;
 
             Rectangle rectangle = new Rectangle(5, 4);
-
             rectangle.A = 3;
 
             Console.WriteLine($"Площа прямокутника: {rectangle.Square()}");

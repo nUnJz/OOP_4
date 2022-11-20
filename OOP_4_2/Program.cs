@@ -2,182 +2,197 @@
 
 namespace OOP_4_2
 {
-    struct Point
+    using System;
+
+    namespace OOP_4_2
     {
-        private int _x;
-        private int _y;
-
-        public Point(int x, int y)
+        class Point
         {
-            _x = x;
-            _y = y;
+            protected int x;
+            protected int y;
+
+            public Point() // конструктор 1
+            {
+                x = y = 0;
+            }
+
+            public Point(int x, int y) // конструктор 2
+            {
+                this.x = x;
+                this.y = y;
+            }
+
+            public Point(Point a) // конструктор 3
+            {
+                X = a.X;
+                Y = a.Y;
+            }
+
+            public int X
+            {
+                get { return x; }
+                set { x = value; }
+            }
+
+            public int Y
+            {
+                get { return y; }
+                set { x = value; }
+            }
+
+            public void Print() // метод
+            {
+                Console.WriteLine("x = {0}, y = {1}", x, y);
+            }
+
+            public static double Distance(Point a, Point b)
+            {
+                return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            }
         }
 
-        public int X
+        class Triangle : Point
         {
-            get { return _x; }
-            set { _x = value; }
+            private Point a;
+            private Point b;
+            private Point c;
+
+            public Point A
+            {
+                get { return a; }
+                set { a = value; }
+            }
+
+            public Point B
+            {
+                get { return b; }
+                set { b = value; }
+            }
+
+            public Point C
+            {
+                get { return c; }
+                set { c = value; }
+            }
+
+            public Triangle(Point a, Point b, Point c) // конструктор
+            {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+            }
+
+            public static new double Distance(Point a, Point b) // метод
+            {
+                return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            }
+
+            public void Length() // метод
+            {
+                double length = Distance(a, b) + Distance(b, c) + Distance(c, a);
+                Console.WriteLine("Периметр трикутника: {0:f2}", length);
+            }
         }
 
-        public int Y
+        class Quadrilateral : Point
         {
-            get { return _y; }
-            set { _x = value; }
-        }
-    }
+            private Point a;
+            private Point b;
+            private Point c;
+            private Point d;
 
-    class Line
-    {
-        public Point _a, _b, _c; // поля
+            public Point D
+            {
+                get { return d; }
+                set { d = value; }
+            }
 
-        public Point A
-        {
-            get { return _a; }
-            set { _a = value; }
-        }
+            public Quadrilateral(Point a, Point b, Point c, Point d) // конструктор
+            {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.d = d;
+            }
 
-        public Point B
-        {
-            get { return _b; }
-            set { _b = value; }
-        }
+            public static new double Distance(Point a, Point b) // метод
+            {
+                return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            }
 
-        public Point C
-        {
-            get { return _c; }
-            set { _c = value; }
-        }
-
-        public Line() { } // конструктор без параметрів
-
-        public Line(Point a, Point b, Point c) // конструктор з параметрами
-        {
-            _a = a;
-            _b = b;
-            _c = c;
+            public void Length() // метод
+            {
+                double length = Distance(a, b) + Distance(b, c) + Distance(c, d) + Distance(d, a);
+                Console.WriteLine("Периметр чотирикутника: {0:f2}", length);
+            }
         }
 
-        public static double Distance(Point a, Point b) // метод
+        class Pentagon : Point
         {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            private Point a;
+            private Point b;
+            private Point c;
+            private Point d;
+            private Point e;
+
+            public Point E
+            {
+                get { return e; }
+                set { e = value; }
+            }
+
+            public Pentagon(Point a, Point b, Point c, Point d, Point e)
+            {
+                this.a = a;
+                this.b = b;
+                this.c = c;
+                this.d = d;
+                this.e = e;
+            }
+
+            public static new double Distance(Point a, Point b) // метод
+            {
+                return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
+            }
+
+            public void Length() // метод
+            {
+                double length = Distance(a, b) + Distance(b, c) + Distance(c, d) + Distance(d, e) + Distance(e, a);
+                Console.WriteLine("Периметр п'ятикутника: {0:f2}", length);
+            }
         }
 
-        public virtual void LengthLine() // метод
+        class Program
         {
-            double lengthLine = Distance(_a, _b) + Distance(_b, _c);
-            Console.WriteLine("Довжина лінії abc: {0:f2}", lengthLine);
-        }
-    }
+            static void Main(string[] args)
+            {
+                Console.OutputEncoding = System.Text.Encoding.Default;
 
-    class Triangle : Line
-    {
-        public Triangle(Point a, Point b, Point c) // конструктор
-        {
-            _a = a;
-            _b = b;
-            _c = c;
-        }
+                Point a = new Point(2, 2);
+                Point b = new Point(1, 5);
+                Point c = new Point(3, 8);
+                Point d = new Point(4, 7);
+                Point e = new Point(5, 3);
 
-        public static new double Distance(Point a, Point b) // метод
-        {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
-        }
+                a.Print();
+                b.Print();
+                c.Print();
+                d.Print();
+                e.Print();
 
-        public override void LengthLine() // метод
-        {
-            double lengthLine = Distance(_a, _b) + Distance(_b, _c) + Distance(_c, _a);
-            Console.WriteLine("Периметр трикутника: {0:f2}", lengthLine);
-        }
-    }
+                Triangle triangle = new Triangle(a, b, c);
+                triangle.A.Y = 1; // зміна координати y точки a
+                triangle.Length();
 
-    class Quadrilateral : Line
-    {
-        public Point _d; // поле
+                Quadrilateral quadrilateral = new Quadrilateral(a, b, c, d);
+                quadrilateral.Length();
 
-        public Point D
-        {
-            get { return _d; }
-            set { _d = value; }
-        }
+                Pentagon pentagon = new Pentagon(a, b, c, d, e);
+                pentagon.E.Y = 4; // зміна координати y точки e
+                pentagon.Length();
 
-        public Quadrilateral(Point a, Point b, Point c, Point d) // конструктор
-        {
-            _a = a;
-            _b = b;
-            _c = c;
-            _d = d;
-        }
-
-        public static new double Distance(Point a, Point b) // метод
-        {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
-        }
-
-        public override void LengthLine() // метод
-        {
-            double lengthLine = Distance(_a, _b) + Distance(_b, _c) + Distance(_c, _d) + Distance(_d, _a);
-            Console.WriteLine("Периметр чотирикутника: {0:f2}", lengthLine);
-        }
-    }
-
-    class Pentagon : Line
-    {
-        public Point _d; // поля
-        public Point _e;
-
-        public Point E
-        {
-            get { return _e; }
-            set { _e = value; }
-        }
-
-        public Pentagon(Point a, Point b, Point c, Point d, Point e)
-        {
-            _a = a;
-            _b = b;
-            _e = c;
-            _d = d;
-            _e = e;
-        }
-
-        public static new double Distance(Point a, Point b) // метод
-        {
-            return Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2));
-        }
-
-        public override void LengthLine() // метод
-        {
-            double lengthLine = Distance(_a, _b) + Distance(_b, _c) + Distance(_c, _d) + Distance(_d, _e) + Distance(_e, _a);
-            Console.WriteLine("Периметр п'ятикутника: {0:f2}", lengthLine);
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.OutputEncoding = System.Text.Encoding.Default;
-
-            Point a = new Point(2, 2);
-            Point b = new Point(1, 5);
-            Point c = new Point(3, 8);
-            Point d = new Point(4, 7);
-
-            Line line = new Line(a, b, c);
-            line.LengthLine();
-
-            Point e = new Point(5, 3);
-
-            Triangle triangle = new Triangle(a, b, c);
-            triangle.LengthLine();
-
-            Quadrilateral quadrilateral = new Quadrilateral(a, b, c, d);
-            quadrilateral.LengthLine();
-
-            Pentagon pentagon = new Pentagon(a, b, c, d, e);
-            pentagon.LengthLine();
-
-            Console.ReadLine();
+                Console.ReadLine();
+            }
         }
     }
 }
